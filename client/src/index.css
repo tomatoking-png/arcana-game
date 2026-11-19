@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+@import '@fontsource/fredoka/400.css';
+@import '@fontsource/fredoka/500.css';
+@import '@fontsource/fredoka/600.css';
+@import '@fontsource/fredoka/700.css';
+@import '@fontsource/mali/400.css';
+@import '@fontsource/mali/600.css';
+@import '@fontsource/mali/700.css';
+
+@theme {
+  --color-coral: #e97870;
+  --color-mustard: #f1b74f;
+  --color-sage: #89a98b;
+  --color-dusty: #74a8cb;
+  --color-plum: #302638;
+  --color-plum-deep: #221a29;
+  --color-plum-soft: #3d3046;
+  --color-mauve: #725d79;
+  --color-cream: #f8e6c9;
+  --color-peach: #efc5ae;
+  --font-display: 'Fredoka', 'Mali', ui-rounded, system-ui, sans-serif;
+  --font-body: 'Mali', 'Fredoka', ui-rounded, system-ui, sans-serif;
+}
+
+:root {
+  --card-w: clamp(62px, 8.6vw, 108px);
+  --card-h: calc(var(--card-w) * 1.66);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+  color-scheme: dark;
+}
+@media (max-height: 640px) {
+  :root { --card-w: clamp(54px, 7.4vw, 84px); }
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: var(--color-plum-deep);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+body { overflow: hidden; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+img { -webkit-user-drag: none; user-select: none; }
+input { user-select: text; -webkit-user-select: text; }
+
+button { font-family: inherit; cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+:focus-visible { outline: 3px solid color-mix(in oklab, var(--color-mustard) 80%, transparent); outline-offset: 3px; border-radius: 999px; }
+
+.font-display { font-family: var(--font-display); }
+
+/* Soft glass panel used across screens — no hard borders */
+.panel {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--color-plum-soft) 92%, transparent), color-mix(in oklab, var(--color-plum) 94%, transparent));
+  box-shadow: 0 18px 40px -18px rgb(10 6 14 / .75), inset 0 1px 0 rgb(248 230 201 / .06);
+  border-radius: 28px;
+}
+.panel-cream {
+  background: var(--color-cream);
+  color: var(--color-plum);
+  box-shadow: 0 14px 30px -14px rgb(10 6 14 / .7);
+  border-radius: 24px;
+}
+
+.text-glow { text-shadow: 0 0 18px rgb(241 183 79 / .45), 0 2px 0 rgb(34 26 41 / .6); }
+
+/* Hand scroller for narrow screens */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@keyframes twinkle { 0%, 100% { opacity: .25; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.1); } }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes sway { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(16deg); } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes flicker { 0%, 100% { opacity: .85; transform: scaleY(1); } 40% { opacity: 1; transform: scaleY(1.08); } 70% { opacity: .75; transform: scaleY(.94); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+.anim-twinkle { animation: twinkle 3.2s ease-in-out infinite; }
+.anim-floaty { animation: floaty 5s ease-in-out infinite; }
+.anim-sway { animation: sway 2.6s ease-in-out infinite; transform-origin: 10% 95%; }
+.anim-flicker { animation: flicker 1.6s ease-in-out infinite; transform-origin: 50% 100%; }
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgb(248 230 201 / .08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
+}
+
+.reduce-motion *, .reduce-motion *::before, .reduce-motion *::after { animation-duration: 0s !important; animation-iteration-count: 1 !important; }
+@media (prefers-reduced-motion: reduce) {
+  .anim-twinkle, .anim-floaty, .anim-sway, .anim-flicker, .shimmer { animation: none; }
+}
